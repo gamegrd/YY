@@ -1,0 +1,56 @@
+<html>
+<title>YY</title>
+<head>
+	<meta charset='utf-8'>
+</head>
+<body>
+    <a href="/account">上传</a>
+    <ul>
+        <li>总用户数:{{ len(YYclients) }}</li>
+        <li>成功登录:{{ sigin_users }}</li>
+        <li>运行时长:{{ uptime }}</li>
+    </ul>
+
+	<form action="/settings" method="post">
+        <input type="hidden" name="disconnect" value="True">
+        <input type="submit" value="断开所有连接">
+	</form>
+	<form action="/settings" method="post">
+        登录间隔:<input type="text" name="login_interval" value="1"/>
+        <input type="submit" value="确定">
+	</form>
+    <table border="1">
+        <tr>
+            <th>序号</th>
+            <th>账户名</th>
+            <th>积分</th>
+            <th>状态</th>
+            <th>本次在线时长</th>
+        </tr>
+        {% for idx, client in enumerate(YYclients) %}
+        <tr>
+            <td> {{ idx + 1 }}</td>
+            <td> {{ client.username }}</td>
+            <td> {{ client.score }}</td>
+            {% if client.state == -1 %}
+                <td>等待登录</td>
+            {% elif client.state == 5 %}
+                <td>已登录</td>
+            {% elif client.state == 6 %}
+                <td>冻结?</td>
+            {% else %}
+                <td>登录中</td>
+            {% end %}
+            <td> {{ client.uptime }}
+        </tr>
+        {% end %}
+    </table>
+    <table>
+        {% for client in banned_YYclients %}
+        <tr>
+            <td> {{ client.username }} </td>
+        </tr>
+        {% end %}
+    </table>
+</body>
+</html>

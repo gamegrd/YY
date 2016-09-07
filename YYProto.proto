@@ -1,0 +1,48 @@
+message YYProto {
+  required int32 cmd = 1;
+
+  optional ExchangeKeyReq key_req = 2;
+  optional ExchangeKeyAck key_ack = 3;
+  optional LoginReq login_req = 8;
+}
+
+message ExchangeKeyReq {
+    required bytes f1 = 1;
+    required bytes rsa_key = 2;
+}
+
+message ExchangeKeyAck {
+    required int32 f1 = 1;
+    required bytes rsa_key = 2;
+    required int32 f3 = 3;
+    required int32 f4 = 4;
+}
+
+
+message LoginReq {
+    required string username = 1;
+    required string password = 2;
+    required string imei = 3;
+    optional string f4 = 4;
+    optional string f5 = 5;
+    optional string f6 = 6;
+    optional string f7 = 7;
+    optional string f8 = 8;
+    required string yymand = 9;
+    required string proxy_proto = 10;
+    optional string f11 = 11;
+    required bool f12 = 12;
+    optional string f13 = 13;
+    required string version = 14;
+    required bool f15 = 15;
+    required bool f16 = 16;
+}
+
+message HeartBeatAct {
+    required int32 cmd = 1;
+    optional ChallengeAct f7 = 7;    
+}
+
+message ChallengeAct {
+    optional bytes key = 3;
+}
